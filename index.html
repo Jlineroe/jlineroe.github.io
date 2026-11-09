@@ -1,3 +1,505 @@
-Hola mundo
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Jonathan Linero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a; /* Gris muy oscuro azulado */
+            --accent: #06b6d4; /* Cian futurista */
+            --text-light: #f8fafc;
+            --text-dark: #1e293b;
+            --text-gray: #475569;
+        }
 
-Created by jlineroe
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .cv-container {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: #ffffff;
+            display: flex;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        /* --- COLUMNA IZQUIERDA (OSCURA) --- */
+        .sidebar {
+            width: 33%;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding: 40px 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .photo-container {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            padding: 4px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+            background-color: #fff;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .sidebar-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .sidebar-title::before,
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20%;
+            height: 1px;
+            background-color: var(--accent);
+        }
+
+        .sidebar-title::before { left: 0; }
+        .sidebar-title::after { right: 0; }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 15px;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .contact-item .icon {
+            margin-right: 10px;
+            font-size: 14px;
+            color: var(--accent);
+            width: 20px;
+            text-align: center;
+        }
+
+        .reference-item {
+            width: 100%;
+            margin-bottom: 15px;
+            font-size: 11px;
+        }
+
+        .reference-item strong {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 3px;
+        }
+
+        .reference-item strong::before {
+            content: '👤';
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .reference-item p {
+            color: #94a3b8;
+            padding-left: 22px;
+        }
+
+        .web-link {
+            font-size: 11px;
+            color: var(--accent);
+            text-decoration: none;
+            margin-top: 10px;
+            word-break: break-all;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* --- COLUMNA DERECHA (BLANCA) --- */
+        .main-content {
+            width: 67%;
+            padding: 40px 35px;
+            color: var(--text-dark);
+        }
+
+        .header {
+            margin-bottom: 25px;
+            border-bottom: 3px solid var(--bg-dark);
+            padding-bottom: 15px;
+        }
+
+        .header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 40px;
+            font-weight: 800;
+            line-height: 1;
+            text-transform: uppercase;
+            color: var(--bg-dark);
+        }
+
+        .header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-gray);
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--bg-dark);
+            margin-top: 22px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #cbd5e1;
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .section-text {
+            font-size: 11px;
+            line-height: 1.5;
+            color: var(--text-gray);
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        /* Experiencia y Educación */
+        .job-item, .edu-item {
+            margin-bottom: 15px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3px;
+        }
+
+        .job-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .job-date {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .job-company {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-gray);
+            margin-bottom: 4px;
+        }
+
+        .job-desc {
+            font-size: 10.5px;
+            line-height: 1.4;
+            color: var(--text-gray);
+            text-align: justify;
+            padding-left: 10px;
+            border-left: 2px solid #e2e8f0;
+            margin-bottom: 5px;
+        }
+
+        /* CERTIFICACIONES (NUEVO DISEÑO) */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 15px;
+            margin-bottom: 10px;
+        }
+
+        .cert-item {
+            display: flex;
+            align-items: flex-start;
+            font-size: 10px;
+            line-height: 1.3;
+            color: var(--text-gray);
+        }
+
+        .cert-item .check {
+            color: var(--accent);
+            font-weight: bold;
+            margin-right: 6px;
+            font-size: 12px;
+            line-height: 1;
+        }
+
+        .cert-item strong {
+            color: var(--text-dark);
+            font-weight: 600;
+            display: block;
+        }
+
+        /* Habilidades e Idiomas */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px 15px;
+            font-size: 11px;
+            color: var(--text-gray);
+        }
+
+        .skills-grid span {
+            display: flex;
+            align-items: center;
+        }
+
+        .skills-grid span::before {
+            content: '▹';
+            color: var(--accent);
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .languages {
+            display: flex;
+            gap: 40px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-gray);
+        }
+
+        /* --- CONFIGURACIÓN DE IMPRESIÓN --- */
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+            }
+            .cv-container {
+                box-shadow: none;
+                width: 100%;
+                min-height: 100vh;
+                page-break-after: avoid;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cv-container">
+    
+    <!-- BARRA LATERAL IZQUIERDA -->
+    <div class="sidebar">
+        <div class="photo-container">
+            <img src="photo/JonathanLineroE1.png" alt="Foto de Jonathan Linero">
+        </div>
+
+        <div class="sidebar-title">Contacto</div>
+        
+        <div class="contact-item">
+            <span class="icon">📱</span>
+            <span>310 503 8212</span>
+        </div>
+        <div class="contact-item">
+            <span class="icon">✉️</span>
+            <span>jlineroe@hotmail.com</span>
+        </div>
+        <div class="contact-item">
+            <span class="icon">📍</span>
+            <span>Barranquilla, Atlántico<br>(Área metropolitana)</span>
+        </div>
+        <div class="contact-item">
+            <span class="icon">🔗</span>
+            <span>https://www.linkedin.com/in/jonathan-francisco-linero-estarita-92a81a168/</span>
+        </div>
+
+        <div class="sidebar-title">Referencias</div>
+        
+        <div class="reference-item">
+            <strong>Referencia 1</strong>
+            <p>Rodolfo Rodriguez<br>Lider Dev / MindTechSourcing<br>304 2759155</p>
+        </div>
+        <div class="reference-item">
+            <strong>Referencia 2</strong>
+            <p>Maria Esperanza Rojas<br>Veterinaria / Administradora Granja<br>322 3035056</p>
+        </div>
+
+        <!-- <div class="sidebar-title">Sitio Web</div> -->
+        <!-- <a href="#" class="web-link">www.tuportafolio.com</a> -->
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL DERECHO -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Jonathan<br>Linero Estarita</h1>
+            <h2>Analista de Datos | Data Governance | SQL Server</h2>
+        </div>
+
+        <div class="section-title">Sobre Mí</div>
+        <div class="section-text">
+            Ingeniero de Sistemas con más de 4 años de experiencia en gestión, análisis, validación, depuración y administración de información empresarial. Experiencia en control de calidad de datos, optimización de bases de datos, integración de sistemas, generación de reportes y automatización de procesos para garantizar la integridad, consistencia y disponibilidad de la información. Capacidad para coordinar con diferentes áreas de negocio, identificar inconsistencias, implementar controles de calidad y apoyar la toma de decisiones basada en datos.
+        </div>
+
+        <div class="section-title">Experiencia</div>
+        
+        <div class="job-item">
+            <div class="job-header">
+                <div class="job-title">Profesional de Desarrollo</div>
+                <div class="job-date">Jun 2026 - Ago 2026</div>
+            </div>
+            <div class="job-company">EPS Familiar de Colombia</div>
+            <div class="job-desc">
+                Diseñé e implementé procesos automatizados para la validación, seguimiento y control de información contractual. Centralicé información de múltiples fuentes garantizando consistencia y trazabilidad. Implementé mecanismos de validación e interoperabilidad. Reduje en un 50% los tiempos operativos mediante automatización.
+            </div>
+        </div>
+
+        <div class="job-item">
+            <div class="job-header">
+                <div class="job-title">Software Developer</div>
+                <div class="job-date">Feb 2025 - Mar 2026</div>
+            </div>
+            <div class="job-company">MindTechSourcing</div>
+            <div class="job-desc">
+                Gestioné integraciones entre aplicaciones empresariales y bases de datos. Automaticé procesos de captura, validación y procesamiento de datos, reduciendo hasta un 85% los tiempos de ejecución. Realicé análisis y corrección de inconsistencias en producción, mejorando el rendimiento de aplicaciones en un 65%.
+            </div>
+        </div>
+
+        <div class="job-item">
+            <div class="job-header">
+                <div class="job-title">Ingeniero de Desarrollo</div>
+                <div class="job-date">Ene 2022 - Ene 2025</div>
+            </div>
+            <div class="job-company">Atlantic Quantum Innovations</div>
+            <div class="job-desc">
+                Administré y optimicé información empresarial en SQL Server. Reduje los tiempos de respuesta de consultas SQL en un 57% mediante optimización de estructuras. Implementé mejoras que redujeron entre un 50% y un 90% los tiempos de procesamiento. Ejecuté análisis, validación y corrección de inconsistencias.
+            </div>
+        </div>
+
+        <div class="section-title">Educación</div>
+        
+        <div class="job-item">
+            <div class="job-header">
+                <div class="job-title">Ingeniería de Sistemas</div>
+                <div class="job-date">2019</div>
+            </div>
+            <div class="job-company">Politécnico Costa Atlántica</div>
+        </div>
+        <div class="job-item">
+            <div class="job-header">
+                <div class="job-title">Tecnólogo en Sistemas</div>
+                <div class="job-date">2006</div>
+            </div>
+            <div class="job-company">Politécnico Costa Atlántica</div>
+        </div>
+
+        <!-- NUEVA SECCIÓN DE CERTIFICACIONES -->
+        <div class="section-title">Certificaciones</div>
+        <div class="section-text" style="margin-bottom: 8px; font-size: 10px;">Formación y conocimientos que complementan mi experiencia.</div>
+        <div class="cert-grid">
+            <div class="cert-item">
+                <span class="check">✓</span>
+                <div><strong>Fundamentos de Docker</strong>Platzi</div>
+            </div>
+            <div class="cert-item">
+                <span class="check">✓</span>
+                <div><strong>Git Profesional</strong>Platzi</div>
+            </div>
+            <div class="cert-item">
+                <span class="check">✓</span>
+                <div><strong>GitHub Actions</strong>Platzi</div>
+            </div>
+            <div class="cert-item">
+                <span class="check">✓</span>
+                <div><strong>C++ 1, 2 y 3</strong>SENA</div>
+            </div>
+            <div class="cert-item">
+                <span class="check">✓</span>
+                <div><strong>Bases de datos NoSQL</strong>Platzi</div>
+            </div>
+            <div class="cert-item">
+                <span class="check">✓</span>
+                <div><strong>Fundamentos Oracle</strong>Politec. Costa Atlántica</div>
+            </div>
+            <div class="cert-item">
+                <span class="check">✓</span>
+                <div><strong>Interoperabilidad X-Road</strong>Ministerio TIC</div>
+            </div>
+        </div>
+
+        <div class="section-title">Habilidades</div>
+        <div class="skills-grid">
+            <span>Gestión de Datos Maestros</span>
+            <span>Data Governance</span>
+            <span>SQL Server / Oracle / PostgreSQL</span>
+            <span>Python / Selenium / Playwright</span>
+            <span>Power Query / Excel Avanzado</span>
+            <span>APIs REST / Integración</span>
+            <span>Automatización de Procesos</span>
+            <span>Calidad y Auditoría de Datos</span>
+        </div>
+
+        <div class="section-title">Idiomas</div>
+        <div class="languages">
+            <span>Español (Nativo)</span>
+            <span>Inglés (Básico)</span>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
